@@ -1,0 +1,46 @@
+This documentation will guide you through the process of creating a simple Todo List Web App using Flask, a Python web framework.
+
+1. Install Flask if you haven't already. You can install it via pip:
+
+2. Create a new Python file for your Flask application. Let's name it `Flaskapp.py`.
+
+3. Writing the Flask App:
+	python
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Our list to store todo items
+todo_list = []
+
+@app.route('/')
+def index():
+ return render_template('index.html', todo_list=todo_list)
+
+@app.route('/add', methods=['POST'])
+def add():
+ todo_item = request.form['todo_item']
+ todo_list.append(todo_item)
+ return redirect(url_for('index'))
+
+@app.route('/delete/<int:index>')
+def delete(index):
+ if 0 <= index < len(todo_list):
+     del todo_list[index]
+ return redirect(url_for('index'))
+
+if __name__ == '__main__':
+ app.run(debug=True)
+
+3. Creating the index page 
+	Create a folder named templates in the same directory as your app.py file.
+	Inside the templates folder, create a file named index.html.
+	Write the HTML code for your todo list interface in the index.html file.
+
+4. Run the python application.
+
+5.Open your web browser and go to http://127.0.0.1:5000/ to view your Todo List Web App.
+
+6. Using app:
+	Add new todo items by typing them into the input field and pressing Enter.
+	Delete todo items by clicking on the "Delete" button next to each item
